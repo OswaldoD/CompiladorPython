@@ -1,0 +1,58 @@
+package analizadorSintactico;
+import java.io.*;
+import java_cup.runtime.*; 
+
+
+/* Import the class java_cup.runtime.*  */
+import java_cup.runtime.*;
+import java.io.FileReader;
+
+
+parser code
+{:
+    public static void main(String[] args){
+        try {
+            Symbol asin = new AnalizadorSintactico(
+                    new AnalizadorLexico( new FileReader(args[0]))).parse();
+            //Object result = asin.parse().value;
+            System.out.println("\n*** Resultados finales ***");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+  
+
+    public void syntax_error(Symbol s){
+	report_error("Error de sintaxis. Linea: " + (s.right + 1) +
+	" Columna: " + s.left + ". Texto: \"" + s.value + "\"", null);
+    }  
+:}
+
+/* - - -  Lista de terminales  - - - */
+
+terminal PR_DEF, PR_GLOBAL, PR_IMPORT, PR_LAMBDA, PR_RETURN, PR_EXCEPT, PR_ASSERT,
+         PR_WHILE, PR_YIELD, PR_PRINT, PR_INPUT, PR_CLASS, PR_BREAK, PR_RAISE, PR_WITH, PR_PASS, PR_FROM, PR_ELIF,
+         PR_ELSE, PR_EXEC, PR_FOR, PR_DEL, PR_INT, PR_IF, PR_TRY, PR_CONTINUE, PR_FINALLY;
+terminal CONT_LLAVE_ABRE, CONT_LLAVE_CIERRA, CONT_CORCHETE_ABRE, CONT_CORCHETE_CIERRA, CONT_PARENTESIS_ABRE, 
+          CONT_PARENTESIS_CIERRA;
+terminal NUMERO_ENTERO, NUMERO_LONG, NUMERO_FLOTANTE, NUMERO_COMPLEJO;
+terminal SEPARADOR_COMA, SEPARADOR_DOS_PUNTOS;
+terminal IDENTIFICADOR, Error_Identificador, COMENTARIO_BLOQUE, STRING, COMP_IS, COMP_IN, ERROR;
+terminal  OP_RESTA,
+          OP_MULTIPLICACION, OP_SUMA, OP_DIVISION, OP_MODULO,  OP_IGUAL, OP_MAYOR, OP_MENOR,
+          OPBITS_AND, OPBITS_OR, OPBITS_XOR, OPBITS_NOT, OP_ASIGNAR_RESTA, OP_POTENCIA, OP_ASIGNAR_MULTIPLICACION,
+          OP_ASIGNAR_SUMA, OP_OR, OP_DIV_ENTERA, OP_ASIGNAR_DIVISION, OP_ASIGNAR_MODULO, OP_COMPARACION_IGUALDAD,
+          OP_DISTINTO, OP_MAYORIGUAL, OPBITS_DESPLAZ_DERECHA, OP_MENORIGUAL, OP_DIFERENTE, OPBITS_DESPLAZ_IZQ,
+          OP_ASIGNAR_DIV_ENTERA, OP_ASIGNAR_POTENCIA, OP_AND, OP_NOT;
+
+
+          
+
+
+
+non terminal START;
+
+
+/*------------- Declaración de Precedencia y Asociatividad -------------*/
+
+START ::= PR_DEF;
