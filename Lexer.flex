@@ -142,6 +142,11 @@ comentarioBloque=("'''")[^']*("'''")
 "while"		{return new Symbol(sym.PR_WHILE, yychar, yyline, yytext());}
 "with"		{return new Symbol(sym.PR_WITH, yychar, yyline, yytext());}
 "yield"		{return new Symbol(sym.PR_YIELD, yychar, yyline, yytext());}
+"float"		{return new Symbol(sym.PR_FLOAT, yychar, yyline, yytext());}
+"list"		{return new Symbol(sym.PR_LIST, yychar, yyline, yytext());}
+"string"        {return new Symbol(sym.PR_STRING, yychar, yyline, yytext());}
+"boolean"       {return new Symbol(sym.PR_BOOLEAN, yychar, yyline, yytext());}
+"char"          {return new Symbol(sym.PR_CHAR, yychar, yyline, yytext());}
 
 /* Operadores Aritmeticos */
 "+"		{return new Symbol(sym.OP_SUMA, yychar, yyline, yytext());}
@@ -191,6 +196,8 @@ comentarioBloque=("'''")[^']*("'''")
 /* Definicion de separadores */
 ","		{return new Symbol(sym.SEPARADOR_COMA, yychar, yyline, yytext());}
 ":"		{return new Symbol(sym.SEPARADOR_DOS_PUNTOS, yychar, yyline, yytext());}
+";"		{return new Symbol(sym.PUNTO_COMA, yychar, yyline, yytext());}
+
 //separadorTab="  " /* revisar */
 
 /* Definicion de contenedores */
