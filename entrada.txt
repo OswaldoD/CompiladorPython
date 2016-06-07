@@ -12,3 +12,5 @@ def promedio(x,y,z):
 ;
 def distancia(x,y):
 ;
+int x, z
+list b
