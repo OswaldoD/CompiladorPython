@@ -78,7 +78,9 @@ public class Main {
                     /*  Ejecutamos el analizador lexico y sintactico
                      sobre un archivo de pruebas. 
                      */
-                    String[] archivoPrueba = {"entrada.txt"};
+                    //String[] archivoPrueba = {"entrada.txt"};
+                    String[] archivoPrueba = {"entradaclase.txt"};
+
                     AnalizadorSintactico.main(archivoPrueba);
                     //AnalizadorSintactico p;
                     //p = new AnalizadorSintactico((java_cup.runtime.Scanner) new AnalizadorSintactico((java_cup.runtime.Scanner) new java.io.FileInputStream("C://Users/esporras/Documents/NetBeansProjects/ProyectoCompi/src/archivosPrueba/for.txt")));
