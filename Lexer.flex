@@ -220,5 +220,5 @@ comentarioBloque=("'''")[^']*("'''")
 
 {espacio}	{}
 
-.			{ System.out.println("Caracter ilegal: " + yytext()); }
+.  { System.out.println("Caracter ilegal: "+yytext()+"Linea: "+yyline);}
 }

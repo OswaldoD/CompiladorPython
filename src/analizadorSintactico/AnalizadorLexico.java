@@ -911,7 +911,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { System.out.println("Caracter ilegal: " + yytext());
+            { System.out.println("Caracter ilegal: "+yytext()+"Linea: "+yyline);
             }
           case 79: break;
           case 2: 

@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//estefanny
 package analizadorSintactico;
 
 import java.io.File;
@@ -78,7 +79,7 @@ public class Main {
                      sobre un archivo de pruebas. 
                      */
                     String[] archivoPrueba = {"entrada.txt"};
-                    //AnalizadorSintactico.main(archivoPrueba);
+                    AnalizadorSintactico.main(archivoPrueba);
                     //AnalizadorSintactico p;
                     //p = new AnalizadorSintactico((java_cup.runtime.Scanner) new AnalizadorSintactico((java_cup.runtime.Scanner) new java.io.FileInputStream("C://Users/esporras/Documents/NetBeansProjects/ProyectoCompi/src/archivosPrueba/for.txt")));
                     //p.parse();
