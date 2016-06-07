@@ -147,6 +147,8 @@ comentarioBloque=("'''")[^']*("'''")
 "string"        {return new Symbol(sym.PR_STRING, yychar, yyline, yytext());}
 "boolean"       {return new Symbol(sym.PR_BOOLEAN, yychar, yyline, yytext());}
 "char"          {return new Symbol(sym.PR_CHAR, yychar, yyline, yytext());}
+"range"         {return new Symbol(sym.PR_RANGE, yychar, yyline, yytext());}
+
 
 /* Operadores Aritmeticos */
 "+"		{return new Symbol(sym.OP_SUMA, yychar, yyline, yytext());}
@@ -194,9 +196,11 @@ comentarioBloque=("'''")[^']*("'''")
 "in" 		{return new Symbol(sym.COMP_IN, yychar, yyline, yytext());}
 
 /* Definicion de separadores */
-","		{return new Symbol(sym.SEPARADOR_COMA, yychar, yyline, yytext());}
-":"		{return new Symbol(sym.SEPARADOR_DOS_PUNTOS, yychar, yyline, yytext());}
+","		{return new Symbol(sym.COMA, yychar, yyline, yytext());}
+":"		{return new Symbol(sym.DOS_PUNTOS, yychar, yyline, yytext());}
 ";"		{return new Symbol(sym.PUNTO_COMA, yychar, yyline, yytext());}
+"."		{return new Symbol(sym.PUNTO, yychar, yyline, yytext());}
+
 
 //separadorTab="  " /* revisar */
 
