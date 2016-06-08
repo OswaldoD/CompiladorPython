@@ -9,11 +9,15 @@ def suma(x,y,z):
 	complex n
 
 	s = 1
+        s = s
+        a = d
 	s = 1.0
 	s = ''
 	s = 'hola'
 	s = True
 	s = False
+        s = []
+        s = [True , 1, 'r']
 ;
 def producto(a,b,c):
 #f = a

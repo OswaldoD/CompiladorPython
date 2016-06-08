@@ -56,7 +56,7 @@ import java.io.Reader;
     Declaramos expresiones regulares que despues usaremos en las reglas lexicas.
 */
    
-espacio = \t|\f|" "|\r|\n
+espacio = \t | \f | " " | \r | \n
 
 
 /*Definicion de los numeros*/
