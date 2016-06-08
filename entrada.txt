@@ -5,12 +5,24 @@ def suma(x,y,z):
 	string e
 	boolean r
 	char s, p
+	long x
+	complex n
+
+	s = 1
+	s = 1.0
+	s = ''
+	s = 'hola'
+
 ;
 def producto(a,b,c):
+#f = a
 ;
 def promedio(x,y,z):
+#a=a
 ;
 def distancia(x,y):
+#s=s
 ;
 int x, z
 list b
+

@@ -145,6 +145,8 @@ comentarioBloque=("'''")[^']*("'''")
 "float"		{return new Symbol(sym.PR_FLOAT, yychar, yyline, yytext());}
 "list"		{return new Symbol(sym.PR_LIST, yychar, yyline, yytext());}
 "string"        {return new Symbol(sym.PR_STRING, yychar, yyline, yytext());}
+"long"          {return new Symbol(sym.PR_LONG, yychar, yyline, yytext());}
+"complex"       {return new Symbol(sym.PR_COMPLEX, yychar, yyline, yytext());}
 "boolean"       {return new Symbol(sym.PR_BOOLEAN, yychar, yyline, yytext());}
 "char"          {return new Symbol(sym.PR_CHAR, yychar, yyline, yytext());}
 "range"         {return new Symbol(sym.PR_RANGE, yychar, yyline, yytext());}
@@ -230,6 +232,8 @@ comentarioBloque=("'''")[^']*("'''")
 
 
 {espacio}	{}
+
+"#".* {/*Ignore*/}
 
 .  { System.out.println("Caracter ilegal: "+yytext()+"Linea: "+yyline);}
 }

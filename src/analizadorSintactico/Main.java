@@ -78,8 +78,8 @@ public class Main {
                     /*  Ejecutamos el analizador lexico y sintactico
                      sobre un archivo de pruebas. 
                      */
-                   // String[] archivoPrueba = {"entrada.txt"}; //archivo de funciones
-                    String[] archivoPrueba = {"entradaclase.txt"}; //archivo de clases
+                    String[] archivoPrueba = {"entrada.txt"}; //archivo de funciones
+                 //   String[] archivoPrueba = {"entradaclase.txt"}; //archivo de clases
 
                     AnalizadorSintactico.main(archivoPrueba);
                     //AnalizadorSintactico p;
