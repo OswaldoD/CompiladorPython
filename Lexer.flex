@@ -151,6 +151,9 @@ comentarioBloque=("'''")[^']*("'''")
 "char"          {return new Symbol(sym.PR_CHAR, yychar, yyline, yytext());}
 "range"         {return new Symbol(sym.PR_RANGE, yychar, yyline, yytext());}
 
+/* Definicion de literal booleano */
+"True" 		{return new Symbol(sym.BOOL_TRUE, yychar, yyline, yytext());}
+"False"		{return new Symbol(sym.BOOL_FALSE, yychar, yyline, yytext());}
 
 /* Operadores Aritmeticos */
 "+"		{return new Symbol(sym.OP_SUMA, yychar, yyline, yytext());}
@@ -221,10 +224,6 @@ comentarioBloque=("'''")[^']*("'''")
 /* Definicion de los identificadores */
 {identificadores}	{return new Symbol(sym.IDENTIFICADOR, yychar, yyline, yytext());}
 
-
-/* Definicion de literal booleano */
-"True" 		{return new Symbol(sym.BOOL_TRUE, yychar, yyline, yytext());}
-"False"		{return new Symbol(sym.BOOL_FALSE, yychar, yyline, yytext());}
 
 /* Comentario de bloque */
 {comentarioBloque} 	{return new Symbol(sym.COMENTARIO_BLOQUE, yychar, yyline, yytext());}
