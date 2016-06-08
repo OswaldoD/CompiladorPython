@@ -1105,7 +1105,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 121: break;
           case 31: 
-            { return new Symbol(sym.OP_ASIGNAR_RESTA, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_ASG_RESTA, yychar, yyline, yytext());
             }
           case 122: break;
           case 32: 
@@ -1113,11 +1113,11 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 123: break;
           case 33: 
-            { return new Symbol(sym.OP_ASIGNAR_MULTIPLICACION, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_ASG_MUL, yychar, yyline, yytext());
             }
           case 124: break;
           case 34: 
-            { return new Symbol(sym.OP_ASIGNAR_SUMA, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_ASG_SUMA, yychar, yyline, yytext());
             }
           case 125: break;
           case 35: 
@@ -1145,11 +1145,11 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 131: break;
           case 41: 
-            { return new Symbol(sym.OP_ASIGNAR_DIVISION, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_ASG_DIV, yychar, yyline, yytext());
             }
           case 132: break;
           case 42: 
-            { return new Symbol(sym.OP_ASIGNAR_MODULO, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_ASG_MOD, yychar, yyline, yytext());
             }
           case 133: break;
           case 43: 
@@ -1185,7 +1185,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 141: break;
           case 51: 
-            { return new Symbol(sym.OP_ASIGNAR_POTENCIA, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_ASG_POT, yychar, yyline, yytext());
             }
           case 142: break;
           case 52: 
@@ -1217,7 +1217,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 149: break;
           case 59: 
-            { return new Symbol(sym.OP_ASIGNAR_DIV_ENTERA, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_ASG_DIVENT, yychar, yyline, yytext());
             }
           case 150: break;
           case 60: 

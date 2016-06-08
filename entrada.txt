@@ -17,7 +17,8 @@ def suma(x,y,z):
 	s = True
 	s = False
         s = []
-        s = [True , 1, 'r']
+        s = [ True , 1, 'r' ]
+        s = prueba()
 ;
 def producto(a,b,c):
 #f = a

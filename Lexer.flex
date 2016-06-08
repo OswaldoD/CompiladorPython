@@ -175,13 +175,13 @@ comentarioBloque=("'''")[^']*("'''")
 
 /* OperadorAsignativo */
 "="		{return new Symbol(sym.OP_IGUAL, yychar, yyline, yytext());}
-"-="		{return new Symbol(sym.OP_ASIGNAR_RESTA, yychar, yyline, yytext());}
-"+="		{return new Symbol(sym.OP_ASIGNAR_SUMA, yychar, yyline, yytext());}
-"*="		{return new Symbol(sym.OP_ASIGNAR_MULTIPLICACION, yychar, yyline, yytext());} 
-"/="		{return new Symbol(sym.OP_ASIGNAR_DIVISION, yychar, yyline, yytext());}
-"%="		{return new Symbol(sym.OP_ASIGNAR_MODULO, yychar, yyline, yytext());}
-"**="		{return new Symbol(sym.OP_ASIGNAR_POTENCIA, yychar, yyline, yytext());}
-"//="		{return new Symbol(sym.OP_ASIGNAR_DIV_ENTERA, yychar, yyline, yytext());}
+"-="		{return new Symbol(sym.OP_ASG_RESTA, yychar, yyline, yytext());}
+"+="		{return new Symbol(sym.OP_ASG_SUMA, yychar, yyline, yytext());}
+"*="		{return new Symbol(sym.OP_ASG_MUL, yychar, yyline, yytext());} 
+"/="		{return new Symbol(sym.OP_ASG_DIV, yychar, yyline, yytext());}
+"%="		{return new Symbol(sym.OP_ASG_MOD, yychar, yyline, yytext());}
+"**="		{return new Symbol(sym.OP_ASG_POT, yychar, yyline, yytext());}
+"//="		{return new Symbol(sym.OP_ASG_DIVENT, yychar, yyline, yytext());}
 
 /* Operadores de Bits */
 "&"		{return new Symbol(sym.OPBITS_AND, yychar, yyline, yytext());}
