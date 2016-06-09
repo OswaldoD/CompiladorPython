@@ -1005,7 +1005,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 96: break;
           case 6: 
-            { return new Symbol(sym.OP_MULTIPLICACION, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_MUL, yychar, yyline, yytext());
             }
           case 97: break;
           case 7: 
@@ -1017,11 +1017,11 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 99: break;
           case 9: 
-            { return new Symbol(sym.OP_DIVISION, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_DIV, yychar, yyline, yytext());
             }
           case 100: break;
           case 10: 
-            { return new Symbol(sym.OP_MODULO, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_MOD, yychar, yyline, yytext());
             }
           case 101: break;
           case 11: 
@@ -1109,7 +1109,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 122: break;
           case 32: 
-            { return new Symbol(sym.OP_POTENCIA, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_POT, yychar, yyline, yytext());
             }
           case 123: break;
           case 33: 
@@ -1141,7 +1141,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 130: break;
           case 40: 
-            { return new Symbol(sym.OP_DIV_ENTERA, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_DIVENT, yychar, yyline, yytext());
             }
           case 131: break;
           case 41: 
@@ -1153,15 +1153,15 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 133: break;
           case 43: 
-            { return new Symbol(sym.OP_COMPARACION_IGUALDAD, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_CMPIGUAL, yychar, yyline, yytext());
             }
           case 134: break;
           case 44: 
-            { return new Symbol(sym.OP_DISTINTO, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_DIST, yychar, yyline, yytext());
             }
           case 135: break;
           case 45: 
-            { return new Symbol(sym.OP_MAYORIGUAL, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_MAYORIG, yychar, yyline, yytext());
             }
           case 136: break;
           case 46: 
@@ -1169,11 +1169,11 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             }
           case 137: break;
           case 47: 
-            { return new Symbol(sym.OP_MENORIGUAL, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_MENORIG, yychar, yyline, yytext());
             }
           case 138: break;
           case 48: 
-            { return new Symbol(sym.OP_DIFERENTE, yychar, yyline, yytext());
+            { return new Symbol(sym.OP_DIF, yychar, yyline, yytext());
             }
           case 139: break;
           case 49: 

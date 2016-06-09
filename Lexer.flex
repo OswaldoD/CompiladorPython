@@ -158,20 +158,20 @@ comentarioBloque=("'''")[^']*("'''")
 /* Operadores Aritmeticos */
 "+"		{return new Symbol(sym.OP_SUMA, yychar, yyline, yytext());}
 "-"		{return new Symbol(sym.OP_RESTA, yychar, yyline, yytext());}
-"*"		{return new Symbol(sym.OP_MULTIPLICACION, yychar, yyline, yytext());}
-"/"		{return new Symbol(sym.OP_DIVISION, yychar, yyline, yytext());}
-"%"		{return new Symbol(sym.OP_MODULO, yychar, yyline, yytext());}
-"**"		{return new Symbol(sym.OP_POTENCIA, yychar, yyline, yytext());}
-"//"		{return new Symbol(sym.OP_DIV_ENTERA, yychar, yyline, yytext());}
+"*"		{return new Symbol(sym.OP_MUL, yychar, yyline, yytext());}
+"/"		{return new Symbol(sym.OP_DIV, yychar, yyline, yytext());}
+"%"		{return new Symbol(sym.OP_MOD, yychar, yyline, yytext());}
+"**"		{return new Symbol(sym.OP_POT, yychar, yyline, yytext());}
+"//"		{return new Symbol(sym.OP_DIVENT, yychar, yyline, yytext());}
 
 /* Operadores Comparativos */
-"=="		{return new Symbol(sym.OP_COMPARACION_IGUALDAD, yychar, yyline, yytext());}
-"!=" 		{return new Symbol(sym.OP_DISTINTO, yychar, yyline, yytext());}
+"=="		{return new Symbol(sym.OP_CMPIGUAL, yychar, yyline, yytext());}
+"!=" 		{return new Symbol(sym.OP_DIST, yychar, yyline, yytext());}
 ">"		{return new Symbol(sym.OP_MAYOR, yychar, yyline, yytext());}
 "<"		{return new Symbol(sym.OP_MENOR, yychar, yyline, yytext());}
-"<>"		{return new Symbol(sym.OP_DIFERENTE, yychar, yyline, yytext());}
-">="		{return new Symbol(sym.OP_MAYORIGUAL, yychar, yyline, yytext());}
-"<="		{return new Symbol(sym.OP_MENORIGUAL, yychar, yyline, yytext());}
+"<>"		{return new Symbol(sym.OP_DIF, yychar, yyline, yytext());}
+">="		{return new Symbol(sym.OP_MAYORIG, yychar, yyline, yytext());}
+"<="		{return new Symbol(sym.OP_MENORIG, yychar, yyline, yytext());}
 
 /* OperadorAsignativo */
 "="		{return new Symbol(sym.OP_IGUAL, yychar, yyline, yytext());}
