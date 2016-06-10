@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java_cup.runtime.*;
 import java.io.Reader;
-import java.util.ArrayList;
       
 
 /**
@@ -604,22 +603,13 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     }
 
     private void error()
-    throws IOException
+    //throws IOException
     {
-        throw new IOException("Error léxico = "+yyline+", column = "+yycolumn+", text = '"+yytext()+"'");        
+        //throw new IOException("Error léxico = "+yyline+", text = '"+yytext()+"'");                
+        System.out.println((char)27 + "[31mError léxico. Linea: "+yyline+", text = '"+yytext()+"'");
     }
 
-    private ArrayList tokensList; /* our variable for storing token's info that will be the output */
 
-    private void writeOutputFile() throws IOException { /* our method for writing the output file */
-            String filename = "ListaTokens.txt";
-            BufferedWriter out = new BufferedWriter(new FileWriter(filename));
-            for (Object s:this.tokensList) {
-                    System.out.println(s);
-                    out.write(s + "\n");
-            }
-            out.close();
-    }
 
 
   /**
@@ -628,7 +618,6 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
    * @param   in  the java.io.Reader to read input from.
    */
   AnalizadorLexico(java.io.Reader in) {
-  this.tokensList = new ArrayList();
     this.zzReader = in;
   }
 

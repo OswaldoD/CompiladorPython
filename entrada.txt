@@ -1,4 +1,4 @@
-def suma(x,y,z:
+°°def suma(x,y,z:
         int x,
 	int x, y, z
 	float s

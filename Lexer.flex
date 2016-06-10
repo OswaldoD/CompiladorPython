@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java_cup.runtime.*;
 import java.io.Reader;
-import java.util.ArrayList;
       
 %% //inicio de opciones
    
@@ -26,9 +25,7 @@ import java.util.ArrayList;
 %column
 
 
-%init{ /* The %init directive allows us to introduce code in the class constructor. We are using it for initializing our variables */
-this.tokensList = new ArrayList();
-%init}
+
 
     
 /* 
@@ -60,22 +57,13 @@ this.tokensList = new ArrayList();
     }
 
     private void error()
-    throws IOException
+    //throws IOException
     {
-        throw new IOException("Error léxico = "+yyline+", column = "+yycolumn+", text = '"+yytext()+"'");        
+        //throw new IOException("Error léxico = "+yyline+", text = '"+yytext()+"'");                
+        System.out.println((char)27 + "[31mError léxico. Linea: "+yyline+", text = '"+yytext()+"'");
     }
 
-    private ArrayList tokensList; /* our variable for storing token's info that will be the output */
 
-    private void writeOutputFile() throws IOException { /* our method for writing the output file */
-            String filename = "ListaTokens.txt";
-            BufferedWriter out = new BufferedWriter(new FileWriter(filename));
-            for (Object s:this.tokensList) {
-                    System.out.println(s);
-                    out.write(s + "\n");
-            }
-            out.close();
-    }
 %}
    
 /*

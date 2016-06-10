@@ -59,7 +59,7 @@ public class Main {
                  ycalc.cup contiene la definicion del analizador sintactico
                  */
                 case GENERAR: {
-                    generarAnalizadores(args);                    
+                    generarAnalizadores(args);   
                     break;
                 }
                 case EJECUTAR: {
@@ -77,8 +77,7 @@ public class Main {
                 }
             }        
     }
-    
- 
+
 
     
     public static void  generarAnalizadores(String[] args){
