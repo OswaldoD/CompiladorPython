@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//estefanny
 package analizadorSintactico;
 
 import java.io.File;
@@ -78,8 +77,8 @@ public class Main {
                     /*  Ejecutamos el analizador lexico y sintactico
                      sobre un archivo de pruebas. 
                      */
-                    String[] archivoPrueba = {"entrada.txt"}; //archivo de funciones
-                 //   String[] archivoPrueba = {"entradaclase.txt"}; //archivo de clases
+                    String[] archivoPrueba = {"entrada.txt"};
+               //   String[] archivoPrueba = {"entradaclase.txt"}; //archivo de clases
 
                     AnalizadorSintactico.main(archivoPrueba);
                     //AnalizadorSintactico p;
@@ -125,3 +124,4 @@ public class Main {
         return efectuado;
     }
 }
+

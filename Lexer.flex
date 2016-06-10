@@ -105,8 +105,8 @@ comentarioBloque=("'''")[^']*("'''")
 <YYINITIAL> {
 
 /* Numeros */
-{numerosEnteros} {return new Symbol(sym.NUMERO_ENTERO, yychar, yyline, yytext());}
-{numerosLong} {return new Symbol(sym.NUMERO_LONG, yychar, yyline, yytext());}
+{numerosEnteros}   {return new Symbol(sym.NUMERO_ENTERO, yychar, yyline, yytext());}
+{numerosLong}      {return new Symbol(sym.NUMERO_LONG, yychar, yyline, yytext());}
 {numerosFlotantes} {return new Symbol(sym.NUMERO_FLOTANTE, yychar, yyline, yytext());}
 {numerosComplejos} {return new Symbol(sym.NUMERO_COMPLEJO, yychar, yyline, yytext());}
 
@@ -234,5 +234,5 @@ comentarioBloque=("'''")[^']*("'''")
 
 "#".* {/*Ignore*/}
 
-.  { System.out.println("Caracter ilegal: "+yytext()+"Linea: "+yyline);}
+. { System.out.println("Caracter ilegal: " + yytext()); }
 }
