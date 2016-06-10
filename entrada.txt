@@ -1,4 +1,5 @@
-def suma(x,y,z):
+def suma(x,y,z:
+        int x,
 	int x, y, z
 	float s
 	list a
@@ -7,6 +8,12 @@ def suma(x,y,z):
 	char s, p
 	long x
 	complex n
+
+    #    s =
+
+     #   s =
+
+      #  s =
 
 	s = (1+1)
         s = s
@@ -17,13 +24,18 @@ def suma(x,y,z):
 	s = True
 	s = False
         s = []
-        s = [ True, 1,'r']
+        s = [ True 1,'r']
         s = prueba()
         s = (True and False)
-        s = 1+1+1+1
-        while (True):
+        s = 1 +
+        while (True)
             s = 0
-        ;
+        
+      #  print
+      #  print (1))
+      #  input(1+1)
+        input
+        input()      
 ;
 def producto(a,b,c):
 #f = a
