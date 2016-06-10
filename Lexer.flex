@@ -144,6 +144,7 @@ comentarioBloque=("'''")[^']*("'''")
 
 "assert"	{return new Symbol(sym.PR_ASSERT, yychar, yyline, yytext());}
 "break"		{return new Symbol(sym.PR_BREAK, yychar, yyline, yytext());}
+"catch"		{return new Symbol(sym.PR_CATCH, yychar, yyline, yytext());}
 "class"		{return new Symbol(sym.PR_CLASS, yychar, yyline, yytext());}
 "continue"	{return new Symbol(sym.PR_CONTINUE, yychar, yyline, yytext());}
 "def"		{return new Symbol(sym.PR_DEF, yychar, yyline, yytext());}
