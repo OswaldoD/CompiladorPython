@@ -2,8 +2,12 @@ package analizadorSintactico;
 
 /* --------------------------Codigo de Usuario----------------------- */
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java_cup.runtime.*;
 import java.io.Reader;
+import java.util.ArrayList;
       
 %% //inicio de opciones
    
@@ -20,6 +24,12 @@ import java.io.Reader;
 */
 %line
 %column
+
+
+%init{ /* The %init directive allows us to introduce code in the class constructor. We are using it for initializing our variables */
+this.tokensList = new ArrayList();
+%init}
+
     
 /* 
    Activamos la compatibilidad con Java CUP para analizadores
@@ -48,9 +58,26 @@ import java.io.Reader;
     private Symbol symbol(int type, Object value) {
         return new Symbol(type, yyline, yycolumn, value);
     }
+
+    private void error()
+    throws IOException
+    {
+        throw new IOException("Error léxico = "+yyline+", column = "+yycolumn+", text = '"+yytext()+"'");        
+    }
+
+    private ArrayList tokensList; /* our variable for storing token's info that will be the output */
+
+    private void writeOutputFile() throws IOException { /* our method for writing the output file */
+            String filename = "ListaTokens.txt";
+            BufferedWriter out = new BufferedWriter(new FileWriter(filename));
+            for (Object s:this.tokensList) {
+                    System.out.println(s);
+                    out.write(s + "\n");
+            }
+            out.close();
+    }
 %}
    
-
 /*
     ***Macro declaraciones***
     Declaramos expresiones regulares que despues usaremos en las reglas lexicas.
@@ -234,5 +261,6 @@ comentarioBloque=("'''")[^']*("'''")
 
 "#".* {/*Ignore*/}
 
-. { System.out.println("Caracter ilegal: " + yytext()); }
+.  { error();}
+//{ System.out.println("Caracter ilegal: "+yytext()+"Linea: "+yyline);}
 }
