@@ -118,6 +118,7 @@ TIPO_BLOQUE ::= PRINT BLOQUE_CODIGO
                |WHILE_STMT BLOQUE_CODIGO
                |IF_STMT BLOQUE_CODIGO
                |TRY_STMT BLOQUE_CODIGO
+               |TIPO_FUNC BLOQUE_CODIGO /* llamar funciones */
                | ;
 
 /*------------------ Asignaciones : =, +=, -+, *=, /=, %=, **=, //= */
