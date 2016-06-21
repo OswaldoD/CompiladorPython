@@ -1,14 +1,19 @@
 package analizadorSintactico;
 import java.io.*;
-import java_cup.runtime.*; 
-
+import java.util.ArrayList;
+import java.util.Stack;
 
 /* Import the class java_cup.runtime.*  */
 import java_cup.runtime.*;
 import java.io.FileReader;
 
+action code{:
+    ArrayList<Datos_Guardados> tabla_simbolos = new ArrayList<Datos_Guardados>();
+    Stack<String> pilaSemantica = new Stack<String>();
 
-parser code
+:}
+
+parser code 
 {:
     /* Reporte de error encontrado. */
     public void report_error(String message, Object info) {
@@ -130,23 +135,23 @@ precedence left DOS_PUNTOS, PUNTO, PUNTO_COMA, COMA, IDENTIFICADOR;
 
 
 /*---------------------------------------------------------------------------------------------------------------------*/
-START ::= FUNCIONES VARIABLES BLOQUE_CODIGO
+START ::= FUNCIONES VARIABLES:global BLOQUE_CODIGO 
          |PR_CLASS IDENTIFICADOR DOS_PUNTOS VARIABLES FUNCIONES BLOQUE_CODIGO;
 
-FUNCIONES ::= PR_DEF IDENTIFICADOR CONT_PARENTESIS_ABRE PARAMETROS CONT_PARENTESIS_CIERRA DOS_PUNTOS VARIABLES BLOQUE_CODIGO TERMINADOR FUNCIONES
+FUNCIONES ::= PR_DEF IDENTIFICADOR:id CONT_PARENTESIS_ABRE:alcance PARAMETROS CONT_PARENTESIS_CIERRA DOS_PUNTOS VARIABLES BLOQUE_CODIGO TERMINADOR FUNCIONES {: id.toString(); :}
              |PR_DEF error
              | ;
 
 
 /*-------- Parametros funcion(<n_parametros>) donde n >=0 ---------------*/
-PARAMETROS ::= IDENTIFICADOR MAS_PARAMETROS 
-              | ;
+PARAMETROS ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_PARAMETROS 
+              | {:  :}; 
 
-MAS_PARAMETROS ::= COMA PARAMETROS 
+MAS_PARAMETROS ::= COMA PR_TIPO_DATO PARAMETROS 
                    | ;
 
 /*-------------------- Variables --------------------*/
-VARIABLES ::= PR_TIPO_DATO IDENTIFICADOR MAS_VARIABLES VARIABLES
+VARIABLES ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_VARIABLES VARIABLES {: System.out.println("s " + id.toString()); :}
              |error VARIABLES /*duda*/
            /*  |error */
              | ;
@@ -249,9 +254,9 @@ INPUT ::= PR_INPUT CONT_PARENTESIS_ABRE IDENTIFICADOR CONT_PARENTESIS_CIERRA
          |PR_INPUT CONT_PARENTESIS_ABRE error
          |PR_INPUT error;
    
-PR_TIPO_DATO ::= PR_INT 
-                |PR_FLOAT 
-                |PR_LONG 
+PR_TIPO_DATO ::= PR_INT:tipo {: System.out.println("--> " + tipo.toString()); :}
+                |PR_FLOAT
+                |PR_LONG
                 |PR_COMPLEX  
                 |PR_LIST 
                 |PR_STRING

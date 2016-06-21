@@ -57,7 +57,7 @@ import java.io.Reader;
     //throws IOException
     {
         //throw new IOException("Error léxico = "+yyline+", text = '"+yytext()+"'");                
-        System.out.println((char)27 + "[31mError léxico. Linea: "+yyline+", text = '"+yytext()+"'");
+        System.out.println((char)27 + "[31mError léxico. Linea: "+yyline+", text = '"+ yytext()+"'");
     }
 
 

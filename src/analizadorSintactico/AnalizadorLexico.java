@@ -606,7 +606,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     //throws IOException
     {
         //throw new IOException("Error léxico = "+yyline+", text = '"+yytext()+"'");                
-        System.out.println((char)27 + "[31mError léxico. Linea: "+yyline+", text = '"+yytext()+"'");
+        System.out.println((char)27 + "[31mError léxico. Linea: "+yyline+", text = '"+ yytext()+"'");
     }
 
 
