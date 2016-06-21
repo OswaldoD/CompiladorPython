@@ -1,0 +1,9 @@
+
+
+int x
+
+x = X + c                      
+
+w = a+ v + b                     
+
+	w = a+ v + b

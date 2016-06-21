@@ -1,0 +1,57 @@
+
+class Triangulo:
+    float lado1=0.0
+    float lado2=0.0
+    float base=0.0
+    float altura=0.0
+
+    def getlado1():
+        return lado1
+    ;
+    def getlado2():
+        return lado2
+    ;
+    def getbase():
+        return base
+    ;
+    def getaltura():
+        return altura
+    ;
+    def perimetro():
+        return(lado1+lado2+base)
+    ;
+    def area():
+        return((base*altura)/2)
+    ;
+    def clasifica():
+        if lado1==lado2 and lado1==base:
+            return 'Es Equilatero'
+        ;
+        elif lado1==lado2 and lado1!=base:
+            return 'Es Isoseles'
+        ;
+        elif lado1!=lado2 and lado1!=base and lado2!=base:
+            return 'Es Escaleno'
+        ;
+	;
+#Falta ;
+class OtraClase:  #Solo pueda haber una clase por archivo
+    float lado1=0.0     #Quitar para probar los errores de abajo
+    float lado2=0.0
+    float base=0.0
+    float altura=0.0
+
+    def getlado1():
+        return lado1
+    ;
+;   
+
+
+#Programa Principal
+
+t=Triangulo(lado1,lado2,base,altura) #Acepta los new
+
+t.perimetro() # Llamada a funciones de clase
+t.area #Error porque debe ser una llamada a funcion
+print('El triangulo es: ' + t.clasifica())) # Error Parantesis
+    

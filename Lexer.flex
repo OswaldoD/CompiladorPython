@@ -24,10 +24,7 @@ import java.io.Reader;
 %line
 %column
 
-
-
-
-    
+   
 /* 
    Activamos la compatibilidad con Java CUP para analizadores
    sintacticos(parser)
