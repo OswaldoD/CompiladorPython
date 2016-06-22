@@ -50,6 +50,7 @@ public class Main {
             System.out.print("Opcion: ");
             valor = in.nextInt();
             chooser(valor, args);
+            ;
     }
     
     public static void chooser(int valor, String[] args){

@@ -130,14 +130,16 @@ precedence left DOS_PUNTOS, PUNTO, PUNTO_COMA, COMA, IDENTIFICADOR;
 START ::= FUNCIONES VARIABLES:global BLOQUE_CODIGO {:pilaSemantica.push("Global");
                                                    Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
                                                    tabla_simbolos.add(datos_simbolo);
-                                                   System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);:}
+                                                   System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+                                                   :}
          |PR_CLASS:clase IDENTIFICADOR:id DOS_PUNTOS VARIABLES:local FUNCIONES BLOQUE_CODIGO 
          {: tipoDato=clase.toString();
          identificador=id.toString();
          pilaSemantica.push("Global");
          Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
          tabla_simbolos.add(datos_simbolo);
-         System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);:}; 
+         System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+         :}; 
 
 FUNCIONES ::= PR_DEF:def IDENTIFICADOR:id CONT_PARENTESIS_ABRE PARAMETROS CONT_PARENTESIS_CIERRA DOS_PUNTOS VARIABLES BLOQUE_CODIGO TERMINADOR FUNCIONES 
              {:pilaSemantica.push("Global"); 
@@ -145,7 +147,8 @@ FUNCIONES ::= PR_DEF:def IDENTIFICADOR:id CONT_PARENTESIS_ABRE PARAMETROS CONT_P
              identificador=id.toString();
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
              tabla_simbolos.add(datos_simbolo);
-System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);:}
+             System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             :}
              |PR_DEF error
              | ;
 
@@ -155,27 +158,35 @@ PARAMETROS ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_PARAMETROS
                {:pilaSemantica.push("Local"); 
                identificador=id.toString();               
                Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
-               System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); :}
+               System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
+               :}               
               | ; 
 
 MAS_PARAMETROS ::= COMA PR_TIPO_DATO IDENTIFICADOR:id MAS_PARAMETROS 
-                   {:pilaSemantica.push("Local"); 
+                   {:pilaSemantica.push("Local");                   
                    identificador=id.toString();               
                    Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
-                   System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); :}
+                   System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
+                   :}
                    | ;
 
 /*-------------------- Variables --------------------*/
 VARIABLES ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_VARIABLES VARIABLES  
               {:pilaSemantica.push("Local"); 
                identificador=id.toString();               
-              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
-              System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); :}
+               Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
+               System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
+               :}
              |error VARIABLES /*duda*/
            /*  |error */
              |;
 
 MAS_VARIABLES ::= COMA IDENTIFICADOR:id MAS_VARIABLES
+                {:pilaSemantica.push("Local"); 
+                identificador=id.toString(); 
+                Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
+                System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
+                :}
                  |COMA error
                  | ;
 
@@ -233,7 +244,14 @@ WHILE_STMT ::= PR_WHILE CONT_PARENTESIS_ABRE COMPARATIVA CONT_PARENTESIS_CIERRA 
 
 /*-------------------- Sentencia for --------------------*/
 
-FOR_STMT ::= PR_FOR IDENTIFICADOR COMP_IN PR_RANGE CONT_PARENTESIS_ABRE EXPRESSION CONT_PARENTESIS_CIERRA DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA
+FOR_STMT ::= PR_FOR:for IDENTIFICADOR:id COMP_IN PR_RANGE CONT_PARENTESIS_ABRE EXPRESSION CONT_PARENTESIS_CIERRA DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA
+             {:pilaSemantica.push("Local"); 
+             tipoDato=for.toString();
+             identificador=id.toString();
+             Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
+             tabla_simbolos.add(datos_simbolo);
+             System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             :}
             |PR_FOR error;
 
 
