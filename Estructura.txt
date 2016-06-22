@@ -1,9 +1,10 @@
 
+class Triangulo:
+    float base
+    float altura
 
-int x
-
-x = X + c                      
-
-w = a+ v + b                     
-
-	w = a+ v + b
+    def getlado1():        
+    ;
+    def funcion3( int x, float y): # error porque no hay tipo de funciones
+	x= g+6
+    ;

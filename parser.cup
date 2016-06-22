@@ -6,10 +6,16 @@ import java.util.Stack;
 /* Import the class java_cup.runtime.*  */
 import java_cup.runtime.*;
 import java.io.FileReader;
+import analizadorSintactico.Datos_Guardados;
 
 action code{:
     ArrayList<Datos_Guardados> tabla_simbolos = new ArrayList<Datos_Guardados>();
     Stack<String> pilaSemantica = new Stack<String>();
+    String tipoDato="";
+    String identificador="";
+    String valorDato="";
+    String scope="";
+    
 
 :}
 
@@ -21,9 +27,9 @@ parser code
         if (info instanceof java_cup.runtime.Symbol) {
             java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
             if (s.left >= 0) {                
-                m.append(" in line "+(s.left+1));
+               // m.append(" in columna "+(s.left+1));
                 if (s.right >= 0)
-                    m.append(", column "+(s.right+1));
+                    m.append(", en linea "+(s.right+1));
                     m.append(", texto \""+ s.value +"\"");
             }
         }
@@ -62,21 +68,7 @@ parser code
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-      //  try {
-        //    Symbol asin = new AnalizadorSintactico(
-          //          new AnalizadorLexico( new FileReader(args[0]))).parse();
-            //Object result = asin.parse().value;
-            //System.out.println("\n*** Resultados finales ***");
-        //} catch (Exception ex) {
-          //  ex.printStackTrace();
-        //}
-    }
-  
-
-  //  public void syntax_error(Symbol s){
-	//report_error("Error de sintaxis. Linea: " + (s.right + 1) + ". Texto: \"" + s.value + "\"", null);
-
-    //}  
+    } 
 :}
 
 /* - - -  Lista de terminales  - - - */
@@ -135,28 +127,55 @@ precedence left DOS_PUNTOS, PUNTO, PUNTO_COMA, COMA, IDENTIFICADOR;
 
 
 /*---------------------------------------------------------------------------------------------------------------------*/
-START ::= FUNCIONES VARIABLES:global BLOQUE_CODIGO 
-         |PR_CLASS IDENTIFICADOR DOS_PUNTOS VARIABLES FUNCIONES BLOQUE_CODIGO;
+START ::= FUNCIONES VARIABLES:global BLOQUE_CODIGO {:pilaSemantica.push("Global");
+                                                   Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
+                                                   tabla_simbolos.add(datos_simbolo);
+                                                   System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);:}
+         |PR_CLASS:clase IDENTIFICADOR:id DOS_PUNTOS VARIABLES:local FUNCIONES BLOQUE_CODIGO 
+         {: tipoDato=clase.toString();
+         identificador=id.toString();
+         pilaSemantica.push("Global");
+         Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
+         tabla_simbolos.add(datos_simbolo);
+         System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);:}; 
 
-FUNCIONES ::= PR_DEF IDENTIFICADOR:id CONT_PARENTESIS_ABRE:alcance PARAMETROS CONT_PARENTESIS_CIERRA DOS_PUNTOS VARIABLES BLOQUE_CODIGO TERMINADOR FUNCIONES {: id.toString(); :}
+FUNCIONES ::= PR_DEF:def IDENTIFICADOR:id CONT_PARENTESIS_ABRE PARAMETROS CONT_PARENTESIS_CIERRA DOS_PUNTOS VARIABLES BLOQUE_CODIGO TERMINADOR FUNCIONES 
+             {:pilaSemantica.push("Global"); 
+             tipoDato=def.toString();
+             identificador=id.toString();
+             Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
+             tabla_simbolos.add(datos_simbolo);
+System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);:}
              |PR_DEF error
              | ;
 
 
 /*-------- Parametros funcion(<n_parametros>) donde n >=0 ---------------*/
 PARAMETROS ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_PARAMETROS 
-              | {:  :}; 
+               {:pilaSemantica.push("Local"); 
+               identificador=id.toString();               
+               Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
+               System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); :}
+              | ; 
 
-MAS_PARAMETROS ::= COMA PR_TIPO_DATO PARAMETROS 
+MAS_PARAMETROS ::= COMA PR_TIPO_DATO IDENTIFICADOR:id MAS_PARAMETROS 
+                   {:pilaSemantica.push("Local"); 
+                   identificador=id.toString();               
+                   Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
+                   System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); :}
                    | ;
 
 /*-------------------- Variables --------------------*/
-VARIABLES ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_VARIABLES VARIABLES {: System.out.println("s " + id.toString()); :}
+VARIABLES ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_VARIABLES VARIABLES  
+              {:pilaSemantica.push("Local"); 
+               identificador=id.toString();               
+              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
+              System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); :}
              |error VARIABLES /*duda*/
            /*  |error */
-             | ;
+             |;
 
-MAS_VARIABLES ::= COMA IDENTIFICADOR MAS_VARIABLES
+MAS_VARIABLES ::= COMA IDENTIFICADOR:id MAS_VARIABLES
                  |COMA error
                  | ;
 
@@ -254,14 +273,14 @@ INPUT ::= PR_INPUT CONT_PARENTESIS_ABRE IDENTIFICADOR CONT_PARENTESIS_CIERRA
          |PR_INPUT CONT_PARENTESIS_ABRE error
          |PR_INPUT error;
    
-PR_TIPO_DATO ::= PR_INT:tipo {: System.out.println("--> " + tipo.toString()); :}
-                |PR_FLOAT
-                |PR_LONG
-                |PR_COMPLEX  
-                |PR_LIST 
-                |PR_STRING
-                |PR_BOOLEAN
-                |PR_CHAR;
+PR_TIPO_DATO ::= PR_INT:tipo  {: tipoDato=tipo.toString(); :}
+                |PR_FLOAT:tipo  {: tipoDato=tipo.toString(); :}
+                |PR_LONG:tipo  {: tipoDato=tipo.toString(); :}
+                |PR_COMPLEX:tipo  {: tipoDato=tipo.toString(); :}  
+                |PR_LIST:tipo  {: tipoDato=tipo.toString(); :} 
+                |PR_STRING:tipo  {: tipoDato=tipo.toString(); :}
+                |PR_BOOLEAN:tipo  {: tipoDato=tipo.toString(); :}
+                |PR_CHAR:tipo  {: tipoDato=tipo.toString(); :} ;
 
 TIPO_DATO ::= IDENTIFICADOR 
              |TIPO_NUMERO
@@ -271,10 +290,10 @@ TIPO_DATO ::= IDENTIFICADOR
              |TIPO_LISTA
              |TIPO_FUNC;
 
-TIPO_NUMERO ::= NUMERO_ENTERO
-               |NUMERO_FLOTANTE
-               |NUMERO_COMPLEJO
-               |NUMERO_LONG ;
+TIPO_NUMERO ::= NUMERO_ENTERO:valor {:valorDato=valor.toString();:}
+               |NUMERO_FLOTANTE:valor {:valorDato=valor.toString();:}
+               |NUMERO_COMPLEJO:valor {:valorDato=valor.toString();:}
+               |NUMERO_LONG:valor {:valorDato=valor.toString();:} ;
 
 /* Llamado a funciones funcion(<n_parametros>) donde n >=0 */
 TIPO_FUNC ::= IDENTIFICADOR CONT_PARENTESIS_ABRE PARAMETROS CONT_PARENTESIS_CIERRA
