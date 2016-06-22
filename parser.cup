@@ -31,7 +31,14 @@ action code{:
                 tabla_simbolos.add(datos);
             }
         }
-    }  
+    }
+    public void muestraTabla(){
+        System.out.println("----Tabla de Simbolos----");
+        for(int i = 0; i < tabla_simbolos.size(); i++){
+            Datos_Guardados datos = tabla_simbolos.get(i);
+            System.out.println("Tipo " + datos.getTipo() + "ID: "+ datos.getIdentificador() + "Valor: " + datos.getValor() + "Alcance: " + datos.getScope());
+        }
+    }
 :}
 
 parser code 
@@ -162,7 +169,7 @@ INITIAL ::= FUNCIONES VARIABLES:global {: archivo_salida.endSegDatos(); :} BLOQU
                                                    buscarRepetidos(datos_simbolo);
                                                    //tabla_simbolos.add(datos_simbolo);
                                                    System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
-                                                   :} {: archivo_salida.fileWritter(); :}
+                                                   :} {: /*muestraTabla();*/ archivo_salida.fileWritter(); :}
 
                                                                                                      
          |PR_CLASS:clase IDENTIFICADOR:id DOS_PUNTOS VARIABLES:local FUNCIONES BLOQUE_CODIGO 

@@ -106,7 +106,7 @@ public class FileManager {
          *
          * Tambien puede almacenar cualquier objeto
          */
-        System.out.println("ALMACENAR --> " + datos);
+        //System.out.println("ALMACENAR --> " + datos);
         this.segCodigo.add(datos);
     }
 
