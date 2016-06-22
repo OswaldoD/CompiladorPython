@@ -7,6 +7,8 @@ import java.util.Stack;
 import java_cup.runtime.*;
 import java.io.FileReader;
 import analizadorSintactico.Datos_Guardados;
+import analizadorSintactico.FileManager;
+
 
 action code{:
     ArrayList<Datos_Guardados> tabla_simbolos = new ArrayList<Datos_Guardados>();
@@ -15,6 +17,9 @@ action code{:
     String identificador="";
     String valorDato="";
     String scope="";
+    int terminacion = 1;
+    FileManager archivo_salida = new FileManager();
+
 
     public void buscarRepetidos(Datos_Guardados datos){
         for(int i=0; i<tabla_simbolos.size(); i++ ){
@@ -26,20 +31,12 @@ action code{:
                 tabla_simbolos.add(datos);
             }
         }
-
     }  
-
-
-
 :}
 
 parser code 
 {:
-
-
-
-
-
+   public FileManager archivo_salida;
     /* Reporte de error encontrado. */
     public void report_error(String message, Object info) {
         StringBuilder m = new StringBuilder("Error");
@@ -64,6 +61,14 @@ parser code
         System.exit(1);
     }
 
+    public void writeFile(){
+         archivo_salida.fileWritter();
+    }
+
+    public void setArchivo(FileManager archivo_salida){
+        this.archivo_salida = archivo_salida;
+    }
+    
 
     /* Metodo main para garantizar la ejecucion del analizador
        lexico y sintactico, ademas que se pase como parametro la tabla
@@ -89,6 +94,7 @@ parser code
 //            System.out.println("Tipo: "+tabla_simbolos.get(i).getTipo()+" | Identificador: "+tabla_simbolos.get(i).getIdentificador()+
 //                                " | Valor: "+tabla_simbolos.get(i).getValor()+ " | Scope:"+ tabla_simbolos.get(i).getScope());
 //        }
+      //    asin.writeFile();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -134,11 +140,11 @@ non terminal ARITMETICA, MAS_ARITMETICA, TMAS_ARITMETICA, COMPARATIVA, MAS_COMPA
 
 non terminal EXPRESSION, TERMINADOR;
 
-
 non terminal WHILE_STMT, FOR_STMT;
 
-
 non terminal IF_STMT, ELIF_STMT, ELSE_STMT;
+
+non terminal INITIAL;
 
 /* no terminales que deben probarse con calma */
 non terminal TRY_STMT, FINALLY_STMT;
@@ -149,14 +155,16 @@ non terminal PRINT, MAS_PRINT, INPUT;
 precedence left CONT_PARENTESIS_ABRE, CONT_PARENTESIS_CIERRA;
 precedence left DOS_PUNTOS, PUNTO, PUNTO_COMA, COMA, IDENTIFICADOR;
 
-
 /*---------------------------------------------------------------------------------------------------------------------*/
-START ::= FUNCIONES VARIABLES:global BLOQUE_CODIGO {:pilaSemantica.push("Global");
+
+INITIAL ::= FUNCIONES VARIABLES:global {: archivo_salida.endSegDatos(); :} BLOQUE_CODIGO {:pilaSemantica.push("Global");
                                                    Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
                                                    buscarRepetidos(datos_simbolo);
                                                    //tabla_simbolos.add(datos_simbolo);
                                                    System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
-                                                   :}
+                                                   :} {: archivo_salida.fileWritter(); :}
+
+                                                                                                     
          |PR_CLASS:clase IDENTIFICADOR:id DOS_PUNTOS VARIABLES:local FUNCIONES BLOQUE_CODIGO 
          {: tipoDato=clase.toString();
          identificador=id.toString();
@@ -178,7 +186,6 @@ FUNCIONES ::= PR_DEF:def IDENTIFICADOR:id CONT_PARENTESIS_ABRE PARAMETROS CONT_P
              :}
              |PR_DEF error
              | ;
-
 
 /*-------- Parametros funcion(<n_parametros>) donde n >=0 ---------------*/
 PARAMETROS ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_PARAMETROS 
@@ -314,36 +321,27 @@ FOR_STMT ::= PR_FOR:pr_for IDENTIFICADOR:id COMP_IN PR_RANGE CONT_PARENTESIS_ABR
 
 /*-------------------- Sentencia if-elif-else --------------------*/
 
-IF_STMT ::= PR_IF:pr_if COMPARATIVA DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA ELIF_STMT ELSE_STMT
-             {:pilaSemantica.push("Local"); 
-             tipoDato=pr_if.toString();            
-             Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
-            // buscarRepetidos(datos_simbolo);
-             //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
-             :}
+IF_STMT ::= PR_IF:pr_if {: String etiqueta1 = archivo_salida.getEtiqueta(); 
+archivo_salida.incCont(); 
+System.out.println(etiqueta1);
+archivo_salida.almacenaIF(etiqueta1 + ":");
+archivo_salida.almacenaIF("; codigo de if"); 
+pilaSemantica.push(archivo_salida.getEtiqueta());
+archivo_salida.incCont();
+pilaSemantica.push(archivo_salida.getEtiqueta()); 
+archivo_salida.incCont(); :} COMPARATIVA:test_if {: archivo_salida.almacenaIF("; comparativa"); archivo_salida.almacenaIF("jnz " + pilaSemantica.peek()); :} DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA ELIF_STMT ELSE_STMT
            |PR_IF error;
 
-
 ELIF_STMT ::= PR_ELIF:pr_elif COMPARATIVA DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA
-             {:pilaSemantica.push("Local"); 
-             tipoDato=pr_elif.toString();            
-             Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
-             //buscarRepetidos(datos_simbolo);
-             //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
-             :}
              |PR_ELIF error
              | ;
 
-ELSE_STMT ::= PR_ELSE:pr_else DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA
-             {:pilaSemantica.push("Local"); 
-             tipoDato=pr_else.toString();            
-             Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
-             //buscarRepetidos(datos_simbolo);
-             //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
-             :}
+ELSE_STMT ::= PR_ELSE:pr_else {: 
+String s = pilaSemantica.pop();
+archivo_salida.almacenaIF("jmp " + pilaSemantica.peek()); 
+archivo_salida.almacenaIF(s + ":"); 
+
+:} DOS_PUNTOS {: archivo_salida.almacenaIF("; bloque else"); :} BLOQUE_CODIGO PUNTO_COMA {: archivo_salida.almacenaIF(pilaSemantica.pop() + ":"); archivo_salida.almacenaIF("; BLOQUE SALIR"); :}
              |PR_ELSE error
              | ;
 

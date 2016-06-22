@@ -1,2 +1,4 @@
 int a,b,c
 float c,d
+
+print (a)
