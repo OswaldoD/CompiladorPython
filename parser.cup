@@ -4,26 +4,19 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /* Import the class java_cup.runtime.*  */
-import static analizadorSintactico.AnalizadorSintactico.buscarRepetidos;
 import java_cup.runtime.*;
 import java.io.FileReader;
 import analizadorSintactico.Datos_Guardados;
 
 action code{:
+    ArrayList<Datos_Guardados> tabla_simbolos = new ArrayList<Datos_Guardados>();
     Stack<String> pilaSemantica = new Stack<String>();
     String tipoDato="";
     String identificador="";
     String valorDato="";
-    String scope="";   
+    String scope="";
 
-:}
-
-parser code 
-{:
-    static ArrayList<Datos_Guardados> tabla_simbolos = new ArrayList<Datos_Guardados>();
-
-
-    public static void buscarRepetidos(Datos_Guardados datos){
+    public void buscarRepetidos(Datos_Guardados datos){
         for(int i=0; i<=tabla_simbolos.size(); i++ ){
             String identificadorIngresar="";
             if(tabla_simbolos.get(i).getIdentificador().equals(identificadorIngresar)){
@@ -34,7 +27,18 @@ parser code
             }
         }
 
-    }
+    }  
+
+
+
+:}
+
+parser code 
+{:
+
+
+
+
 
     /* Reporte de error encontrado. */
     public void report_error(String message, Object info) {
@@ -81,10 +85,10 @@ parser code
             System.out.print("Que hay table: "+asin.parse().value);
             System.out.println("\n*** Resultados finales ***");
 
-        for(int i=0; i<=tabla_simbolos.size(); i++ ){
-            System.out.println("Tipo: "+tabla_simbolos.get(i).getTipo()+" | Identificador: "+tabla_simbolos.get(i).getIdentificador()+
-                                " | Valor: "+tabla_simbolos.get(i).getValor()+ " | Scope:"+ tabla_simbolos.get(i).getScope());
-        }
+//        for(int i=0; i<=tabla_simbolos.size(); i++ ){
+//            System.out.println("Tipo: "+tabla_simbolos.get(i).getTipo()+" | Identificador: "+tabla_simbolos.get(i).getIdentificador()+
+//                                " | Valor: "+tabla_simbolos.get(i).getValor()+ " | Scope:"+ tabla_simbolos.get(i).getScope());
+//        }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
