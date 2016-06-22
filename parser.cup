@@ -17,7 +17,7 @@ action code{:
     String scope="";
 
     public void buscarRepetidos(Datos_Guardados datos){
-        for(int i=0; i<=tabla_simbolos.size(); i++ ){
+        for(int i=0; i<tabla_simbolos.size(); i++ ){
             String identificadorIngresar="";
             if(tabla_simbolos.get(i).getIdentificador().equals(identificadorIngresar)){
                 //no se inserta nada
@@ -155,7 +155,7 @@ START ::= FUNCIONES VARIABLES:global BLOQUE_CODIGO {:pilaSemantica.push("Global"
                                                    Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
                                                    buscarRepetidos(datos_simbolo);
                                                    //tabla_simbolos.add(datos_simbolo);
-                                                   //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+                                                   System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
                                                    :}
          |PR_CLASS:clase IDENTIFICADOR:id DOS_PUNTOS VARIABLES:local FUNCIONES BLOQUE_CODIGO 
          {: tipoDato=clase.toString();
@@ -164,7 +164,7 @@ START ::= FUNCIONES VARIABLES:global BLOQUE_CODIGO {:pilaSemantica.push("Global"
          Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
          buscarRepetidos(datos_simbolo);
          //tabla_simbolos.add(datos_simbolo);
-         System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+         System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
          :}; 
 
 FUNCIONES ::= PR_DEF:def IDENTIFICADOR:id CONT_PARENTESIS_ABRE PARAMETROS CONT_PARENTESIS_CIERRA DOS_PUNTOS VARIABLES BLOQUE_CODIGO TERMINADOR FUNCIONES 
@@ -174,7 +174,7 @@ FUNCIONES ::= PR_DEF:def IDENTIFICADOR:id CONT_PARENTESIS_ABRE PARAMETROS CONT_P
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+            System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
              |PR_DEF error
              | ;
@@ -187,7 +187,7 @@ PARAMETROS ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_PARAMETROS
                Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
                buscarRepetidos(datos_simbolo);
                //tabla_simbolos.add(datos_simbolo);
-               //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
+               System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
                :}               
               | ; 
 
@@ -208,7 +208,7 @@ VARIABLES ::= PR_TIPO_DATO IDENTIFICADOR:id MAS_VARIABLES VARIABLES
                Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
                 buscarRepetidos(datos_simbolo);
                 //tabla_simbolos.add(datos_simbolo);
-               //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
+               System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
                :}
              |error VARIABLES /*duda*/
            /*  |error */
@@ -220,7 +220,7 @@ MAS_VARIABLES ::= COMA IDENTIFICADOR:id MAS_VARIABLES
                 Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
                 buscarRepetidos(datos_simbolo);
                 //tabla_simbolos.add(datos_simbolo);
-                //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
+                System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
                 :}
                  |COMA error
                  | ;
@@ -278,7 +278,7 @@ WHILE_STMT ::= PR_WHILE:pr_while CONT_PARENTESIS_ABRE COMPARATIVA CONT_PARENTESI
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
               |PR_WHILE:pr_while CONT_PARENTESIS_ABRE BOOL_TRUE CONT_PARENTESIS_CIERRA DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA
              {:pilaSemantica.push("Local"); 
@@ -286,15 +286,15 @@ WHILE_STMT ::= PR_WHILE:pr_while CONT_PARENTESIS_ABRE COMPARATIVA CONT_PARENTESI
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
               |PR_WHILE:pr_while CONT_PARENTESIS_ABRE BOOL_FALSE CONT_PARENTESIS_CIERRA DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA
              {:pilaSemantica.push("Local"); 
              tipoDato=pr_while.toString();            
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
-             buscarRepetidos(datos_simbolo);
+             //buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
               |PR_WHILE error ;
 
@@ -305,9 +305,9 @@ FOR_STMT ::= PR_FOR:pr_for IDENTIFICADOR:id COMP_IN PR_RANGE CONT_PARENTESIS_ABR
              tipoDato=pr_for.toString();
              identificador=id.toString();
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop()); 
-             buscarRepetidos(datos_simbolo);
+             //buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
             |PR_FOR error;
 
@@ -318,9 +318,9 @@ IF_STMT ::= PR_IF:pr_if COMPARATIVA DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA ELIF_STM
              {:pilaSemantica.push("Local"); 
              tipoDato=pr_if.toString();            
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
-             buscarRepetidos(datos_simbolo);
+            // buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
            |PR_IF error;
 
@@ -329,9 +329,9 @@ ELIF_STMT ::= PR_ELIF:pr_elif COMPARATIVA DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA
              {:pilaSemantica.push("Local"); 
              tipoDato=pr_elif.toString();            
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
-             buscarRepetidos(datos_simbolo);
+             //buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
              |PR_ELIF error
              | ;
@@ -340,9 +340,9 @@ ELSE_STMT ::= PR_ELSE:pr_else DOS_PUNTOS BLOQUE_CODIGO PUNTO_COMA
              {:pilaSemantica.push("Local"); 
              tipoDato=pr_else.toString();            
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
-             buscarRepetidos(datos_simbolo);
+             //buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
              |PR_ELSE error
              | ;
@@ -362,7 +362,7 @@ PRINT ::= PR_PRINT:pr_print CONT_PARENTESIS_ABRE EXPRESSION MAS_PRINT CONT_PAREN
                {:pilaSemantica.push("Local"); 
                tipoDato=pr_print.toString();                             
                Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop());
-               buscarRepetidos(datos_simbolo);
+               //buscarRepetidos(datos_simbolo);
                //tabla_simbolos.add(datos_simbolo);
                //System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
                :}
@@ -377,7 +377,7 @@ INPUT ::= PR_INPUT:pr_input CONT_PARENTESIS_ABRE IDENTIFICADOR:id CONT_PARENTESI
                tipoDato=pr_input.toString();
                identificador=id.toString();               
                Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,identificador,"",scope=pilaSemantica.pop());
-               buscarRepetidos(datos_simbolo);
+               //buscarRepetidos(datos_simbolo);
                //tabla_simbolos.add(datos_simbolo);
               // System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
                :}
@@ -425,7 +425,7 @@ OP_ARIT ::= OP_SUMA:suma
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
            |OP_RESTA:resta
              {:pilaSemantica.push("Local"); 
@@ -433,7 +433,7 @@ OP_ARIT ::= OP_SUMA:suma
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
            |OP_MUL:multiplicacion
              {:pilaSemantica.push("Local"); 
@@ -441,7 +441,7 @@ OP_ARIT ::= OP_SUMA:suma
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              //buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :} 
            |OP_DIV:division
              {:pilaSemantica.push("Local"); 
@@ -449,7 +449,7 @@ OP_ARIT ::= OP_SUMA:suma
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :} 
            |OP_MOD:modulo
              {:pilaSemantica.push("Local"); 
@@ -457,7 +457,7 @@ OP_ARIT ::= OP_SUMA:suma
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :} 
            |OP_POT:potencia 
              {:pilaSemantica.push("Local"); 
@@ -465,7 +465,7 @@ OP_ARIT ::= OP_SUMA:suma
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
            |OP_DIVENT:divisionEntera
              {:pilaSemantica.push("Local"); 
@@ -473,7 +473,7 @@ OP_ARIT ::= OP_SUMA:suma
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :};
 
 OP_ASG ::= OP_IGUAL:igual
@@ -482,7 +482,7 @@ OP_ASG ::= OP_IGUAL:igual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
           |OP_ASG_SUMA:asigSuma
              {:pilaSemantica.push("Local"); 
@@ -490,7 +490,7 @@ OP_ASG ::= OP_IGUAL:igual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
           |OP_ASG_RESTA:asigResta
              {:pilaSemantica.push("Local"); 
@@ -498,7 +498,7 @@ OP_ASG ::= OP_IGUAL:igual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
           |OP_ASG_MUL:asigMulti 
              {:pilaSemantica.push("Local"); 
@@ -506,7 +506,7 @@ OP_ASG ::= OP_IGUAL:igual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
           |OP_ASG_DIV:asigDiv
              {:pilaSemantica.push("Local"); 
@@ -514,7 +514,7 @@ OP_ASG ::= OP_IGUAL:igual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
           |OP_ASG_MOD:asigMod
              {:pilaSemantica.push("Local"); 
@@ -522,7 +522,7 @@ OP_ASG ::= OP_IGUAL:igual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
           |OP_ASG_POT:asigPot
              {:pilaSemantica.push("Local"); 
@@ -530,7 +530,7 @@ OP_ASG ::= OP_IGUAL:igual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
           |OP_ASG_DIVENT:asigDivEnt
              {:pilaSemantica.push("Local"); 
@@ -538,7 +538,7 @@ OP_ASG ::= OP_IGUAL:igual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :};
 
 OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
@@ -547,7 +547,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
                |OP_DIST:dist
              {:pilaSemantica.push("Local"); 
@@ -555,7 +555,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
                |OP_MAYOR:mayor
              {:pilaSemantica.push("Local"); 
@@ -563,7 +563,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
                |OP_MENOR:menor
              {:pilaSemantica.push("Local"); 
@@ -571,7 +571,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
                |OP_DIF:dif
              {:pilaSemantica.push("Local"); 
@@ -579,7 +579,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
                |OP_MAYORIG:mayorIgual
              {:pilaSemantica.push("Local"); 
@@ -587,7 +587,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
                |OP_MENORIG:menorIgual
              {:pilaSemantica.push("Local"); 
@@ -595,7 +595,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
                |OP_AND:and
              {:pilaSemantica.push("Local"); 
@@ -603,7 +603,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
                |OP_OR:or
              {:pilaSemantica.push("Local"); 
@@ -611,7 +611,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :}
                |OP_NOT:not
              {:pilaSemantica.push("Local"); 
@@ -619,7 +619,7 @@ OP_COMPARAR ::= OP_CMPIGUAL:cmpIgual
              Datos_Guardados datos_simbolo = new Datos_Guardados(tipoDato,"","",scope=pilaSemantica.pop()); 
              buscarRepetidos(datos_simbolo);
              //tabla_simbolos.add(datos_simbolo);
-             //System.out.println("TipoDato= "+tipoDato+" identificador= "+identificador+" scope= "+scope);
+             System.out.println("Tipo Dato: "+ tipoDato + " | Identificador: " + identificador+" Scope: "+scope ); 
              :};     
 
 TERMINADOR ::= PUNTO_COMA;
